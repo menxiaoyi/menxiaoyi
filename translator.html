@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奈亚语翻译器 · 兆字节 Studio</title>
+<script src="https://cdn.jsdelivr.net/npm/encoding-japanese@2.2.0/encoding.min.js"></script>
+<style>
+  :root {
+    --bg: #000000;
+    --panel: #121216;
+    --panel-2: #0a1410;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-soft: rgba(255, 255, 255, 0.05);
+    --text: #f5f5f5;
+    --gray: #aaaaaa;
+    --dim: #6b7470;
+    --green: #0ecf7e;
+    --green-soft: rgba(14, 207, 126, 0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Microsoft YaHei", "微软雅黑", -apple-system, "PingFang SC", sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 36px 22px 64px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection { background: rgba(14, 207, 126, 0.25); }
+  .wrap { max-width: 920px; margin: 0 auto; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 26px; flex-wrap: wrap; gap: 10px;
+  }
+  .back {
+    color: var(--gray); text-decoration: none; font-size: 13px;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    transition: color .15s;
+  }
+  .back:hover { color: var(--green); }
+  .brand-tag {
+    font-size: 12px; color: var(--dim); letter-spacing: 1px;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  }
+  .brand-tag b { color: var(--green); }
+
+  header { margin-bottom: 24px; }
+  h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.01em; }
+  h1 .accent { color: var(--green); }
+  .sub {
+    color: var(--dim);
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .modes { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .mode {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--gray);
+    padding: 8px 18px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 8px;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .mode:hover { color: var(--text); border-color: var(--green); }
+  .mode.active {
+    color: var(--green);
+    border-color: var(--green);
+    background: var(--green-soft);
+  }
+
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: stretch;
+  }
+  textarea {
+    width: 100%;
+    min-height: 340px;
+    resize: vertical;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 15px;
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.65;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  textarea::placeholder { color: var(--dim); }
+  textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px var(--green-soft);
+  }
+  #output { color: var(--green); background: var(--panel-2); }
+
+  textarea::-webkit-scrollbar { width: 8px; }
+  textarea::-webkit-scrollbar-track { background: transparent; }
+  textarea::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+  textarea::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+  .swap { display: flex; align-items: center; }
+  .swap button {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--gray);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 15px;
+    transition: color .2s, border-color .2s, transform .25s, background .2s;
+  }
+  .swap button:hover { color: var(--green); border-color: var(--green); transform: rotate(180deg); }
+
+  .bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--dim);
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .acts { display: flex; gap: 8px; }
+  .btn {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--gray);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .btn:hover { color: var(--green); border-color: var(--green); background: var(--green-soft); }
+
+  .note {
+    margin-top: 34px;
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.75;
+    padding-top: 18px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  /* ---------- mobile ---------- */
+  @media (max-width: 640px) {
+    body { padding: 24px 16px 48px; }
+    h1 { font-size: 20px; }
+    .panels { grid-template-columns: 1fr; gap: 10px; }
+    textarea {
+      min-height: 200px;
+      font-size: 16px; /* prevent iOS focus zoom */
+      padding: 13px;
+    }
+    .swap { justify-content: center; }
+    .swap button { transform: rotate(90deg); }
+    .swap button:hover { transform: rotate(90deg); }
+    .mode, .btn { padding: 11px 20px; font-size: 14px; } /* bigger touch targets */
+    .note { margin-top: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="index.html">← 返回首页</a>
+    <span class="brand-tag">兆字节 <b>Studio</b></span>
+  </div>
+
+  <header>
+    <h1>奈亚语<span class="accent">翻译器</span></h1>
+    <div class="sub">10万牢格林的首选</div>
+  </header>
+
+  <div class="modes">
+    <button class="mode active" data-mode="encode">说奈亚语</button>
+    <button class="mode" data-mode="decode">翻译回人话</button>
+  </div>
+
+  <div class="panels">
+    <textarea id="input" placeholder="输入人话..." spellcheck="false"></textarea>
+    <div class="swap"><button id="swapBtn" title="切换方向">⇄</button></div>
+    <textarea id="output" placeholder="奈亚语..." spellcheck="false" readonly></textarea>
+  </div>
+
+  <div class="bar">
+    <div class="acts">
+      <button class="btn" id="copyBtn">复制结果</button>
+      <button class="btn" id="clearBtn">清空</button>
+    </div>
+    <div id="count">0 字</div>
+  </div>
+
+  <p class="note">
+    用法：中文 → 翻译软件 → 日语 → 选「说奈亚语」粘贴，得到奈亚语；反向可还原成人话。<br>
+    部分字符（如中文）的 UTF-8 字节非合法 Shift_JIS，会变成 �，奈亚也救不回来。
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  const input = document.getElementById("input");
+  const output = document.getElementById("output");
+  const count = document.getElementById("count");
+  const copyBtn = document.getElementById("copyBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const swapBtn = document.getElementById("swapBtn");
+  const modeBtns = document.querySelectorAll(".mode");
+
+  // encode: 生成乱码 (UTF-8 原文 -> 当作 Shift_JIS 解读)
+  // decode: 还原乱码 (乱码 -> Shift_JIS 字节 -> UTF-8 解码)
+  let mode = "encode";
+
+  function encodeMojibake(text) {
+    if (!text) return "";
+    const utf8Bytes = new TextEncoder().encode(text);
+    return new TextDecoder("shift_jis").decode(utf8Bytes);
+  }
+
+  function decodeMojibake(text) {
+    if (!text) return "";
+    const unicodeArray = Encoding.stringToCode(text);
+    const sjisArray = Encoding.convert(unicodeArray, { to: "SJIS", from: "UNICODE" });
+    return new TextDecoder("utf-8").decode(new Uint8Array(sjisArray));
+  }
+
+  function run() {
+    const text = input.value;
+    let result = "";
+    try {
+      result = mode === "encode" ? encodeMojibake(text) : decodeMojibake(text);
+    } catch (e) {
+      result = "【出错】" + (e && e.message ? e.message : e);
+    }
+    output.value = result;
+    count.textContent = text.length.toLocaleString() + " 字";
+  }
+
+  input.addEventListener("input", run);
+
+  modeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modeBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      mode = btn.dataset.mode;
+      // 切换时把输出搬回输入，方便反向操作
+      if (input.value && output.value && !output.value.startsWith("【出错】")) {
+        input.value = output.value;
+      }
+      run();
+    });
+  });
+
+  swapBtn.addEventListener("click", () => {
+    const next = mode === "encode" ? "decode" : "encode";
+    document.querySelector('.mode[data-mode="' + next + '"]').click();
+  });
+
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    output.value = "";
+    run();
+    input.focus();
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    if (!output.value) return;
+    try {
+      await navigator.clipboard.writeText(output.value);
+    } catch (e) {
+      output.removeAttribute("readonly");
+      output.select();
+      document.execCommand("copy");
+      output.setAttribute("readonly", "");
+    }
+    const old = copyBtn.textContent;
+    copyBtn.textContent = "已复制";
+    setTimeout(() => { copyBtn.textContent = old; }, 1200);
+  });
+
+  run();
+})();
+</script>
+</body>
+</html>
