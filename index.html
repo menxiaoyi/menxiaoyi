@@ -400,10 +400,18 @@
   body.home-view .brand-name { color:#111; }
   body.home-view .brand-name b { color:#555; }
   body.home-view .brand-logo { filter:grayscale(1); }
-  .tab.active { animation:tabEnter .58s cubic-bezier(.2,.75,.2,1) both; }
-  @keyframes tabEnter { from { opacity:0; transform:translateY(12px); filter:blur(3px); } to { opacity:1; transform:none; filter:blur(0); } }
-  .home-links { grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
-  .home-link { min-height:142px; padding:17px 16px 16px; background:linear-gradient(145deg,#151515,#070707 78%); border-color:rgba(0,0,0,.18); box-shadow:0 12px 28px rgba(0,0,0,.13); transition:transform .42s cubic-bezier(.2,.75,.2,1),border-color .3s,box-shadow .35s,background .35s; }
+  body.home-view .floating-block { filter:grayscale(1); opacity:.18; box-shadow:none; }
+  body.home-view { --green:#222; --green-soft:rgba(0,0,0,.08); --line:rgba(0,0,0,.18); --line-soft:rgba(0,0,0,.14); --dim:#555; --grid-base:rgba(0,0,0,.035); }
+  body.home-view .tab-nav { border-color:rgba(0,0,0,.16); background:rgba(248,248,245,.92); box-shadow:0 8px 30px rgba(0,0,0,.05); }
+  body.home-view .tab-btn { color:#666; }
+  body.home-view .tab-btn:hover, body.home-view .tab-btn.active { color:#111; }
+  body.home-view .tab-btn::after { background:#111; }
+  body.home-view .section-label { color:#3e3e3b; }
+  body.home-view .section-label::after { background:linear-gradient(90deg,rgba(0,0,0,.18),transparent); }
+  .tab.active { animation:tabEnter .48s cubic-bezier(.2,.75,.2,1) both; }
+  @keyframes tabEnter { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+  .home-links { grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+  .home-link { min-height:148px; padding:18px 17px 17px; background:linear-gradient(145deg,#171717,#070707 78%); border-color:rgba(0,0,0,.18); box-shadow:0 12px 28px rgba(0,0,0,.13); transition:transform .42s cubic-bezier(.2,.75,.2,1),border-color .3s,box-shadow .35s,background .35s; }
   .home-link::before { width:82px; height:82px; right:-45px; top:-45px; border-color:rgba(255,255,255,.36); }
   .home-link::after { content:""; position:absolute; width:1px; height:155%; top:-25%; left:69%; background:linear-gradient(transparent,rgba(255,255,255,.18),transparent); transform:rotate(34deg) translateX(52px); transition:transform .55s cubic-bezier(.2,.75,.2,1); }
   .home-link:hover { transform:translateY(-6px); border-color:rgba(255,255,255,.55); box-shadow:0 20px 38px rgba(0,0,0,.24); background:linear-gradient(145deg,#202020,#090909 78%); }
@@ -411,7 +419,8 @@
   .home-link span { color:#aaa; font-size:9px; }
   .home-link strong { font-size:16px; letter-spacing:.03em; }
   .home-link small { color:#777; font:8px ui-monospace,Consolas,monospace; letter-spacing:.1em; }
-  .home-link i { color:#ddd; }
+  .home-link i { width:25px; height:25px; display:grid; place-items:center; right:15px; bottom:14px; border:1px solid #555; color:#ddd; transition:transform .3s ease,border-color .3s; }
+  .home-link:hover i { transform:rotate(45deg); border-color:#ddd; }
   .tab.active .home-link { animation:cardEnter .6s cubic-bezier(.2,.75,.2,1) backwards; }
   .tab.active .home-link:nth-child(1) { animation-delay:.08s; }
   .tab.active .home-link:nth-child(2) { animation-delay:.15s; }
@@ -419,6 +428,7 @@
   .tab.active .home-link:nth-child(4) { animation-delay:.29s; }
   @keyframes cardEnter { from { opacity:0; transform:translateY(18px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
   .api-card { transition:transform .35s ease,border-color .3s,background .3s; }
+  body.home-view .api-card, body.home-view .api-tile { border-color:rgba(255,255,255,.18); }
   .api-card:hover { transform:translateY(-3px); border-color:rgba(255,255,255,.3); background:linear-gradient(110deg,#171717,#080808); }
   .api-tiles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:10px; }
   .api-tile { min-height:150px; padding:17px 19px; border:1px solid var(--line-soft); background:linear-gradient(145deg,#101010,#070707); position:relative; overflow:hidden; }
@@ -428,7 +438,7 @@
   .api-live { color:#d4d4d0; }
   .api-live::before { content:""; display:inline-block; width:5px; height:5px; margin:0 7px 1px 0; background:#ddd; border-radius:50%; animation:signalPulse 2s ease-in-out infinite; }
   @keyframes signalPulse { 50% { opacity:.3; transform:scale(.7); } }
-  .api-quote { max-width:650px; margin:19px 0 11px; color:#eee; font-size:clamp(14px,2vw,18px); line-height:1.55; letter-spacing:-.015em; }
+  .api-quote { max-width:650px; margin:19px 0 11px; color:#eee; font:clamp(14px,2vw,18px)/1.55 Georgia,"Times New Roman",serif; letter-spacing:-.015em; }
   .api-byline { color:#777; font:9px ui-monospace,Consolas,monospace; letter-spacing:.1em; }
   .api-story { display:block; max-width:700px; margin:17px 0 11px; color:#eee; font-size:15px; line-height:1.5; text-decoration:none; }
   .api-story:hover { color:#bbb; }
@@ -577,7 +587,7 @@
         <div class="home-meta"><span>MAKE THINGS</span><span>PLAY A LITTLE</span></div>
       </div>
       <div class="orbit-art" aria-hidden="true"><div class="ring"><i class="node"></i></div><i class="core"></i><span class="cross">＋</span></div>
-      <span class="home-stamp">FORM / MOTION / PLAY</span><span class="home-coord">31°13′N　121°28′E</span>
+      <span class="home-stamp">FORM / MOTION / PLAY</span><span class="home-coord">EST. 2026　·　CHAPTER 01</span>
     </div>
     <div class="section-label">EXPLORE / 选择一个入口</div>
     <div class="home-links">
