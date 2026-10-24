@@ -553,6 +553,85 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   }
+  /* Shared monochrome system for all inner pages. */
+  .page-head { position:relative; display:flex; grid-column:1/-1; align-items:flex-end; justify-content:space-between; gap:24px; overflow:hidden; margin:0 0 20px; padding:22px 24px; border:1px solid rgba(255,255,255,.16); border-left:2px solid #f2f2ef; background:linear-gradient(105deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 70%); animation:pageHeadEnter .45s cubic-bezier(.2,.75,.2,1) both; }
+  .page-head::before,.page-head::after { content:""; position:absolute; pointer-events:none; border:1px solid rgba(255,255,255,.18); transform:rotate(45deg); }
+  .page-head::before { width:80px; height:80px; right:9%; top:-47px; }
+  .page-head::after { width:34px; height:34px; right:calc(9% + 22px); top:-24px; border-color:rgba(255,255,255,.12); }
+  .page-head > div { position:relative; z-index:1; }
+  .page-kicker { color:#92928e; font:9px ui-monospace,Consolas,monospace; letter-spacing:.2em; }
+  .page-head h1 { margin:9px 0 7px; color:#f3f3f0; font-size:clamp(27px,4vw,39px); line-height:1.1; font-weight:400; letter-spacing:-.045em; }
+  .page-head h1 span { margin-left:9px; color:#777; font:11px ui-monospace,Consolas,monospace; letter-spacing:.14em; text-transform:uppercase; }
+  .page-head p { max-width:680px; margin:0; color:#999995; font-size:11px; line-height:1.8; }
+  .page-index { flex:0 0 auto; align-self:flex-start; color:#73736f; font:9px ui-monospace,Consolas,monospace; letter-spacing:.14em; }
+  @keyframes pageHeadEnter { from { opacity:0; transform:translateY(9px); } to { opacity:1; transform:none; } }
+  #code .grid,#tool .grid { align-items:stretch; }
+  .card,.mini-game,.art-card,.game-frame { border-radius:1px; border-color:rgba(255,255,255,.15); background:linear-gradient(145deg,#111,#080808); box-shadow:none; }
+  .card,.mini-game,.art-card { transition:transform .35s cubic-bezier(.2,.75,.2,1),border-color .3s,box-shadow .35s,background .35s; }
+  .card::after,.mini-game::after { content:""; position:absolute; top:-18px; right:-18px; width:42px; height:42px; border:1px solid rgba(255,255,255,.18); transform:rotate(45deg); pointer-events:none; transition:transform .45s ease,right .45s ease; }
+  .card:hover::after,.mini-game:hover::after { right:-11px; transform:rotate(90deg); }
+  .card:hover,.mini-game:hover,.art-card:hover { border-color:rgba(255,255,255,.42); box-shadow:0 18px 42px rgba(0,0,0,.3); }
+  .card::before,.mini-game::before { background:#f2f2ef; }
+  .card .ic { filter:grayscale(1); transition:transform .35s ease; }
+  .card:hover .ic { transform:translateY(-3px) rotate(-4deg); }
+  .card p,.mini-game .desc,.art-info p { color:#999995; }
+  .card .go,.art-info a { color:#eee; border-color:rgba(255,255,255,.3); }
+  .card:hover .go { color:#111; background:#f2f2ef; }
+  .mini-game h3 { color:#eee; }
+  .btn,.btn.ghost { border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.045); color:#ddd; transition:transform .25s,border-color .25s,background .25s,color .25s; }
+  .btn:hover,.btn.ghost:hover { transform:translateY(-2px); border-color:#eee; background:#eee; color:#111; }
+  .gn-row input { border:1px solid rgba(255,255,255,.2); color:#f2f2ef; background:#090909; }
+  .gn-row input:focus { border-color:#eee; box-shadow:0 0 0 3px rgba(255,255,255,.08); }
+  .gn-msg,.rps-score .w b,.rps-score .l b,.mem-info b,.mem-card.flip,.mem-card.done,.ms-hole.up { color:#eee; border-color:#eee; }
+  .rps-score .l b { color:#aaa; }
+  .rps-btn { border:1px solid rgba(255,255,255,.17); border-radius:1px; background:#0b0b0b; filter:grayscale(1); }
+  .rps-btn:hover { border-color:#eee; background:rgba(255,255,255,.09); }
+  .mem-card { border:1px solid rgba(255,255,255,.16); border-radius:1px; background:linear-gradient(135deg,#101010,#080808); }
+  .mem-card.flip { background:rgba(255,255,255,.1); }
+  .mem-card.done { background:rgba(255,255,255,.18); }
+  .rt-box { border:1px solid rgba(255,255,255,.18); border-radius:1px; background:repeating-linear-gradient(135deg,#101010 0 10px,#141414 10px 11px); }
+  .rt-box.wait { background:#555; color:#fff; }
+  .rt-box.go { background:#f2f2ef; color:#111; }
+  .ms-hole { border:1px solid rgba(255,255,255,.16); border-radius:1px; background:linear-gradient(145deg,#111,#080808); }
+  .ms-hole.up { background:rgba(255,255,255,.11); }
+  .game-frame .gf-head,.gf-tip { color:#aaa; background:#0d0d0d; border-color:rgba(255,255,255,.12); }
+  .game-frame .gf-head b,.game-frame .gf-head span:first-child::before { color:#eee; }
+  .game-frame canvas,#monaCanvas { filter:grayscale(1); }
+  .fm-stage { border-color:rgba(255,255,255,.22); }
+  .fm-overlay { backdrop-filter:none; background:rgba(0,0,0,.48); }
+  .fm-dialog { border-color:rgba(255,255,255,.36); background:rgba(8,8,8,.94); }
+  .fm-start { border-color:#eee; background:#eee; color:#111; }
+  .fm-credit a { color:#ddd; }
+  .art-card { background:#090909; }
+  .art-card::after { inset:9px; border-color:rgba(255,255,255,.24); }
+  .art-card:hover::after { inset:15px; border-color:rgba(255,255,255,.68); }
+  .art-image { background:#111; }
+  .art-image img { filter:grayscale(.16) saturate(.86); transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .45s; }
+  .art-card:hover .art-image img { filter:grayscale(0) saturate(1); }
+  .art-index { color:#eee; background:rgba(5,5,5,.78); border:1px solid rgba(255,255,255,.25); }
+  .art-info { border-color:rgba(255,255,255,.14); }
+  .tab.active .page-head { animation-delay:.02s; }
+  .tab.active .grid .card,.tab.active > .mini-game,.tab.active .game-frame,.tab.active .gallery-grid .art-card { animation:cardEnter .55s cubic-bezier(.2,.75,.2,1) backwards; }
+  #game.active > .mini-game:nth-child(2) { animation-delay:.06s; }
+  #game.active > .game-frame:nth-child(3) { animation-delay:.12s; }
+  #game.active > .mini-game:nth-child(4) { animation-delay:.18s; }
+  #game.active > .mini-game:nth-child(5) { animation-delay:.24s; }
+  #game.active > .mini-game:nth-child(6) { animation-delay:.30s; }
+  #game.active > .mini-game:nth-child(7) { animation-delay:.36s; }
+  #game.active > .mini-game:nth-child(8) { animation-delay:.42s; }
+  .tab.active .gallery-grid .art-card:nth-child(2) { animation-delay:.08s; }
+  .tab.active .gallery-grid .art-card:nth-child(3) { animation-delay:.16s; }
+  .card:focus-visible,.btn:focus-visible,.rps-btn:focus-visible,.fm-start:focus-visible,.tab-btn:focus-visible,.home-link:focus-visible { outline:1px solid #fff; outline-offset:3px; }
+  @media (max-width:760px) {
+    .page-head { padding:19px 17px; gap:12px; }
+    .page-index { font-size:8px; }
+  }
+  @media (max-width:470px) {
+    .page-head { min-height:122px; align-items:flex-start; }
+    .page-head h1 { font-size:29px; }
+    .page-head h1 span { display:block; margin:7px 0 0; font-size:9px; }
+    .page-index { max-width:66px; line-height:1.7; text-align:right; }
+  }
 </style>
 </head>
 <body class="home-view">
@@ -618,8 +697,10 @@
 
   <!-- 角色画廊：社区创作者的二创作品，非官方立绘 -->
   <section class="tab" id="gallery">
-    <div class="eyebrow">FAN ART / PERSONAL PICKS</div>
-    <p class="gallery-intro">几位我很喜欢的角色，和来自创作者的二次创作。作品版权归原作者所有；点击作者来源查看原作。</p>
+    <header class="page-head">
+      <div><div class="page-kicker">FAN ART / PERSONAL PICKS</div><h1>角色画廊 <span>FAN ART</span></h1><p>几位我很喜欢的角色，和来自创作者的二次创作。作品版权归原作者所有；点击作者来源查看原作。</p></div>
+      <span class="page-index">03 / 04<br>CURATED</span>
+    </header>
     <div class="gallery-grid">
       <article class="art-card">
         <div class="art-image"><span class="art-index">01 / TIMEKEEPER</span><img loading="lazy" decoding="async" src="https://pbs.twimg.com/media/F-xfJwzaQAAd_vr.jpg" alt="维尔汀同人插画，由 Natsugu 创作"></div>
@@ -638,6 +719,10 @@
 
   <!-- 源码库：只留随机点名 -->
   <section class="tab" id="code">
+    <header class="page-head">
+      <div><div class="page-kicker">PROJECTS / OPEN SOURCE</div><h1>源码与项目 <span>MADE & SHARED</span></h1><p>收集正在制作和已经公开的小项目。打开源码，看看它们是怎样构建起来的。</p></div>
+      <span class="page-index">01 / 04<br>PROJECTS</span>
+    </header>
     <div class="grid">
       <a class="card" href="https://github.com/menxiaoyi/RandomName" target="_blank">
         <div class="ic">🖥️</div>
@@ -650,6 +735,10 @@
 
   <!-- 小游戏 -->
   <section class="tab" id="game">
+    <header class="page-head">
+      <div><div class="page-kicker">PLAYGROUND / ARCADE MODE</div><h1>小游戏集合 <span>PRESS START</span></h1><p>几分钟的轻松间隙。选一款开始，分数和反应都由你决定。</p></div>
+      <span class="page-index">02 / 04<br>PLAY</span>
+    </header>
     <div class="mini-game fm-game">
       <div class="fm-game-head"><span><strong>FLAPPY MONA</strong> / GITHUB UNIVERSE 2025</span><span>BEST <b id="monaBest">0</b></span></div>
       <div class="fm-stage">
@@ -734,6 +823,10 @@
 
   <!-- 常用工具 -->
   <section class="tab" id="tool">
+    <header class="page-head">
+      <div><div class="page-kicker">TOOLBOX / SMALL UTILITIES</div><h1>常用工具 <span>USEFUL THINGS</span></h1><p>放一些日常会用到的小工具与站点说明，简单、直接，随时可以打开。</p></div>
+      <span class="page-index">04 / 04<br>TOOLS</span>
+    </header>
     <div class="grid">
       <a class="card" href="translator.html">
         <div class="ic">🌀</div><h3>奈亚语翻译器</h3><p>UTF-8 ⇄ Shift_JIS 乱码互转</p><span class="go">打开工具</span>
