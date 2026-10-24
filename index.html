@@ -699,6 +699,49 @@
   @keyframes gameShape { to { transform:translate(-12px,16px) rotate(-12deg); } }
   @keyframes galleryShape { to { transform:rotate(405deg); } }
   @keyframes toolShape { to { transform:rotate(-28deg) skewX(-7deg) translateY(12px); } }
+  /* Like the home hero, each section now has a clear black/white diagonal split. */
+  body:not(.home-view)::before {
+    background:#f0f0ec; clip-path:polygon(0 0,58% 0,38% 100%,0 100%);
+    mask-image:none; opacity:1; animation:none;
+  }
+  body[data-page="code"]::before { clip-path:polygon(0 0,62% 0,38% 100%,0 100%); }
+  body[data-page="game"]::before { clip-path:polygon(56% 0,100% 0,100% 100%,39% 100%); }
+  body[data-page="gallery"]::before { clip-path:polygon(0 0,39% 0,64% 100%,0 100%); }
+  body[data-page="tool"]::before { clip-path:polygon(67% 0,100% 0,100% 100%,43% 100%); }
+  body:not(.home-view)::after {
+    inset:0; top:0; right:0; width:auto; height:auto; aspect-ratio:auto; border:0; border-radius:0;
+    background:repeating-linear-gradient(135deg,rgba(0,0,0,.12) 0 1px,transparent 1px 30px),
+      repeating-linear-gradient(45deg,rgba(255,255,255,.09) 0 1px,transparent 1px 38px);
+    box-shadow:none; transform:none; opacity:.36; animation:pageLineDrift 22s linear infinite;
+  }
+  @keyframes pageLineDrift { to { background-position:120px 0,-90px 0; } }
+  body[data-page="code"]::after {
+    background:repeating-linear-gradient(42deg,rgba(0,0,0,.12) 0 1px,transparent 1px 28px),repeating-linear-gradient(132deg,rgba(255,255,255,.09) 0 1px,transparent 1px 42px);
+    animation-duration:18s;
+  }
+  body[data-page="game"]::after {
+    background:repeating-linear-gradient(135deg,rgba(0,0,0,.12) 0 1px,transparent 1px 30px),repeating-linear-gradient(0deg,rgba(255,255,255,.09) 0 1px,transparent 1px 42px);
+    animation-duration:16s;
+  }
+  body[data-page="gallery"]::after {
+    background:repeating-linear-gradient(32deg,rgba(0,0,0,.12) 0 1px,transparent 1px 27px),repeating-linear-gradient(122deg,rgba(255,255,255,.09) 0 1px,transparent 1px 40px);
+    animation-duration:26s;
+  }
+  body[data-page="tool"]::after {
+    background:repeating-linear-gradient(162deg,rgba(0,0,0,.12) 0 1px,transparent 1px 29px),repeating-linear-gradient(72deg,rgba(255,255,255,.09) 0 1px,transparent 1px 42px);
+    animation-duration:20s;
+  }
+  body[data-page="code"] .brand-name,body[data-page="gallery"] .brand-name { color:#111; }
+  body[data-page="code"] .brand-name b,body[data-page="gallery"] .brand-name b { color:#555; }
+  body:not(.home-view) .tab-nav { background:rgba(8,8,8,.92); }
+  body[data-page="code"] .page-head::before { animation:codeShape 25s ease-in-out infinite alternate; }
+  body[data-page="code"] .page-head::after { animation:codeShape 14s ease-in-out infinite reverse; }
+  body[data-page="game"] .page-head::before { border-radius:50%; animation:gameShape 18s ease-in-out infinite alternate; }
+  body[data-page="game"] .page-head::after { border-radius:50%; animation:gameShape 12s ease-in-out infinite reverse; }
+  body[data-page="gallery"] .page-head::before { border-radius:50%; animation:galleryShape 32s linear infinite; }
+  body[data-page="gallery"] .page-head::after { border-radius:50%; animation:galleryShape 18s linear infinite reverse; }
+  body[data-page="tool"] .page-head::before { animation:toolShape 21s ease-in-out infinite alternate; }
+  body[data-page="tool"] .page-head::after { animation:toolShape 15s ease-in-out infinite reverse; }
   #shootCanvas,#monaCanvas { filter:none !important; }
 </style>
 </head>
