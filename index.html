@@ -647,10 +647,62 @@
     background:linear-gradient(45deg,transparent 49.7%,rgba(255,255,255,.12) 49.9% 50.1%,transparent 50.3%);
     transform:rotate(45deg); opacity:.8;
   }
+  /* Each destination gets its own cut direction, line rhythm and moving motif. */
+  body[data-page="code"]::before {
+    opacity:.86;
+    background:linear-gradient(128deg,transparent 0 41%,rgba(255,255,255,.16) 41% 48%,transparent 48%),
+      repeating-linear-gradient(42deg,transparent 0 23px,rgba(255,255,255,.09) 23px 24px);
+    animation:codeLineDrift 20s linear infinite;
+  }
+  body[data-page="game"]::before {
+    opacity:.82;
+    background:linear-gradient(48deg,transparent 0 52%,rgba(255,255,255,.16) 52% 60%,transparent 60%),
+      repeating-linear-gradient(135deg,transparent 0 30px,rgba(255,255,255,.09) 30px 31px);
+    animation:gameLineDrift 17s linear infinite;
+  }
+  body[data-page="gallery"]::before {
+    opacity:.84;
+    background:linear-gradient(154deg,transparent 0 35%,rgba(255,255,255,.16) 35% 43%,transparent 43%),
+      repeating-linear-gradient(32deg,transparent 0 25px,rgba(255,255,255,.085) 25px 26px);
+    animation:galleryLineDrift 24s linear infinite;
+  }
+  body[data-page="tool"]::before {
+    opacity:.82;
+    background:linear-gradient(28deg,transparent 0 57%,rgba(255,255,255,.16) 57% 65%,transparent 65%),
+      repeating-linear-gradient(162deg,transparent 0 27px,rgba(255,255,255,.09) 27px 28px);
+    animation:toolLineDrift 19s linear infinite;
+  }
+  @keyframes codeLineDrift { to { background-position:140px 0,0 100px; } }
+  @keyframes gameLineDrift { to { background-position:-120px 0,0 -110px; } }
+  @keyframes galleryLineDrift { to { background-position:120px 0,-90px 0; } }
+  @keyframes toolLineDrift { to { background-position:-130px 0,0 120px; } }
+  body[data-page="code"]::after {
+    top:142px; right:clamp(34px,9vw,132px); width:clamp(108px,13vw,164px);
+    animation:codeShape 25s ease-in-out infinite alternate;
+  }
+  body[data-page="game"]::after {
+    top:178px; right:clamp(25px,6vw,82px); width:clamp(150px,19vw,238px); aspect-ratio:1.35;
+    border-radius:50%; box-shadow:0 0 0 14px rgba(255,255,255,.025),0 0 0 15px rgba(255,255,255,.11);
+    animation:gameShape 18s ease-in-out infinite alternate;
+  }
+  body[data-page="gallery"]::after {
+    top:128px; right:clamp(34px,8vw,118px); width:clamp(128px,16vw,198px);
+    border-radius:50%; box-shadow:0 0 0 22px rgba(255,255,255,.025),0 0 0 23px rgba(255,255,255,.11);
+    animation:galleryShape 32s linear infinite;
+  }
+  body[data-page="tool"]::after {
+    top:168px; right:clamp(32px,8vw,112px); width:clamp(104px,12vw,150px); aspect-ratio:1.25;
+    border-radius:0; background:linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.15) 49.8% 50.2%,transparent 50.5%),linear-gradient(0deg,transparent 49.5%,rgba(255,255,255,.12) 49.8% 50.2%,transparent 50.5%);
+    animation:toolShape 21s ease-in-out infinite alternate;
+  }
+  @keyframes codeShape { to { transform:rotate(225deg) translateY(-12px); } }
+  @keyframes gameShape { to { transform:translate(-12px,16px) rotate(-12deg); } }
+  @keyframes galleryShape { to { transform:rotate(405deg); } }
+  @keyframes toolShape { to { transform:rotate(-28deg) skewX(-7deg) translateY(12px); } }
   #shootCanvas,#monaCanvas { filter:none !important; }
 </style>
 </head>
-<body class="home-view">
+<body class="home-view" data-page="home">
 <!-- 动态网格 -->
 <div class="grid-container" id="dynamicGrid"></div>
 <!-- 浮动方块 + 粒子 -->
@@ -870,6 +922,7 @@ tabBtns.forEach(b => b.addEventListener('click', () => {
   tabs.forEach(x => x.classList.remove('active'));
   b.classList.add('active');
   document.getElementById(b.dataset.tab).classList.add('active');
+  document.body.dataset.page = b.dataset.tab;
   document.body.classList.toggle('home-view', b.dataset.tab === 'home');
   window.dispatchEvent(new Event('tabchange'));
 }));
@@ -877,6 +930,7 @@ document.querySelectorAll('[data-open-tab]').forEach(b => b.addEventListener('cl
   const target = b.dataset.openTab;
   tabBtns.forEach(x => x.classList.toggle('active', x.dataset.tab === target));
   tabs.forEach(x => x.classList.toggle('active', x.id === target));
+  document.body.dataset.page = target;
   document.body.classList.toggle('home-view', target === 'home');
   window.dispatchEvent(new Event('tabchange'));
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1332,3 +1386,4 @@ addEventListener('load', () => {
 </script>
 </body>
 </html>
+
