@@ -430,7 +430,7 @@
   .api-card { transition:transform .35s ease,border-color .3s,background .3s; }
   body.home-view .api-card, body.home-view .api-tile { border-color:rgba(255,255,255,.18); }
   .api-card:hover { transform:translateY(-3px); border-color:rgba(255,255,255,.3); background:linear-gradient(110deg,#171717,#080808); }
-  .api-tiles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:10px; }
+  .api-tiles { display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
   .api-tile { min-height:150px; padding:17px 19px; border:1px solid var(--line-soft); background:linear-gradient(145deg,#101010,#070707); position:relative; overflow:hidden; }
   .api-tile::before { content:""; position:absolute; width:105px; height:105px; right:-58px; bottom:-58px; border:1px solid rgba(255,255,255,.18); transform:rotate(45deg); transition:transform .5s ease; }
   .api-tile:hover::before { transform:rotate(90deg) scale(1.15); }
@@ -743,6 +743,186 @@
   body[data-page="tool"] .page-head::before { animation:toolShape 21s ease-in-out infinite alternate; }
   body[data-page="tool"] .page-head::after { animation:toolShape 15s ease-in-out infinite reverse; }
   #shootCanvas,#monaCanvas { filter:none !important; }
+  /* ===== 2026 editorial polish: warm monochrome, tactile cards, quiet motion ===== */
+  :root { --accent-lilac:#c9b8ff; --accent-peach:#ffd8c7; --accent-mint:#c9f3df; }
+  .wrap { max-width:1320px; }
+  .brand-logo { box-shadow:4px 4px 0 rgba(0,0,0,.24),0 0 0 4px rgba(255,255,255,.08); }
+  .tab-btn { transition:color .25s,background .25s,transform .25s; }
+  .tab-btn:hover { transform:translateY(-1px); }
+  body.home-view::before { background:linear-gradient(150deg,#f5f4f0,#e9e8e3); }
+  body.home-view::after { opacity:.62; background:repeating-linear-gradient(135deg,transparent 0 25px,rgba(0,0,0,.075) 25px 26px); }
+  .home-intro { filter:drop-shadow(0 20px 45px rgba(0,0,0,.08)); }
+  .home-meta span:nth-child(2)::before { background:var(--accent-lilac); box-shadow:0 0 12px #c9b8ff88; }
+  .home-links { gap:14px; }
+  .home-link { border-radius:3px; background:linear-gradient(145deg,rgba(22,22,22,.97),rgba(7,7,7,.97)); }
+  .home-link:nth-child(3n+1):hover { border-color:#d6c8ff; box-shadow:0 20px 42px rgba(130,105,220,.14); }
+  .home-link:nth-child(3n+2):hover { border-color:#c9f3df; box-shadow:0 20px 42px rgba(100,190,145,.12); }
+  .home-link:nth-child(3n):hover { border-color:#ffd8c7; box-shadow:0 20px 42px rgba(230,150,120,.12); }
+  .api-card,.api-tile { box-shadow:0 14px 40px rgba(0,0,0,.11); }
+  .api-card { padding:19px 22px; background:linear-gradient(110deg,#111,#090909); }
+  .api-avatar { border-radius:50%; filter:none; padding:2px; background:linear-gradient(135deg,var(--accent-lilac),#fff,var(--accent-mint)); }
+  .api-live::before { background:var(--accent-mint); box-shadow:0 0 10px #c9f3df88; }
+  .api-tile { transition:transform .3s ease,border-color .3s,box-shadow .3s; }
+  .api-tile:hover { transform:translateY(-3px); box-shadow:0 18px 42px rgba(0,0,0,.2); }
+  .page-head { background:linear-gradient(110deg,rgba(255,255,255,.075),rgba(201,184,255,.035) 54%,rgba(255,255,255,.012)); }
+  .card,.mini-game { background:linear-gradient(145deg,rgba(20,20,20,.98),rgba(8,8,8,.96)); }
+  .card:hover { border-color:rgba(201,184,255,.66); box-shadow:0 18px 42px rgba(100,80,160,.13); }
+  .card .go { border-radius:2px; }
+  .art-image img { filter:saturate(.94); }
+  .api-extra { display:grid; grid-template-columns:1.1fr .9fr; gap:10px; margin-top:10px; }
+  .api-repo,.api-cat { min-height:166px; position:relative; overflow:hidden; padding:18px 20px; border:1px solid var(--line-soft); border-radius:4px; background:linear-gradient(140deg,#111,#080808); }
+  .api-repo::after { content:"◈"; position:absolute; right:22px; bottom:-23px; color:rgba(255,255,255,.045); font-size:112px; line-height:1; transform:rotate(-15deg); pointer-events:none; }
+  .api-repo-title { display:block; position:relative; z-index:1; margin:18px 0 8px; color:#eee; font-size:17px; font-weight:500; text-decoration:none; }
+  .api-repo-title:hover { color:var(--accent-lilac); }
+  .api-repo-description { position:relative; z-index:1; max-width:560px; min-height:34px; color:#999; font-size:11px; line-height:1.65; }
+  .api-repo-meta { display:flex; gap:14px; margin-top:14px; color:#aaa; font:9px ui-monospace,Consolas,monospace; letter-spacing:.06em; }
+  .api-cat { display:grid; grid-template-columns:minmax(90px,.65fr) 1fr; align-items:center; gap:16px; }
+  .api-cat img { width:100%; aspect-ratio:1.2; object-fit:cover; border:1px solid rgba(255,255,255,.15); border-radius:3px; background:repeating-linear-gradient(135deg,#111 0 9px,#171717 9px 10px); }
+  .api-cat-title { margin:12px 0 8px; color:#eee; font:15px Georgia,serif; }
+  .api-cat .api-foot { position:relative; z-index:1; }
+  .api-reload:disabled { opacity:.5; cursor:wait; }
+  @media(max-width:650px) { .api-extra { grid-template-columns:1fr; } .api-cat { min-height:145px; } }
+  @media(max-width:470px) { .api-cat { grid-template-columns:100px 1fr; gap:12px; padding:14px; } .api-repo,.api-cat { min-height:150px; } }
+  .mini-game { border-radius:14px 3px 14px 3px; box-shadow:0 12px 30px rgba(0,0,0,.1); }
+  .mini-game:nth-of-type(even) { border-radius:3px 14px 3px 14px; }
+  .card { border-radius:14px 3px 14px 3px; }
+  .card:nth-child(even) { border-radius:3px 14px 3px 14px; }
+  .art-card { border-radius:14px 3px 14px 3px; }
+  .art-card:nth-child(even) { border-radius:3px 14px 3px 14px; }
+  .api-cat,.api-repo { border-radius:14px 3px 14px 3px; }
+  .api-tile { border-radius:3px 14px 3px 14px; }
+  .focus-card { display:grid; grid-template-columns:1fr auto; align-items:center; gap:14px; margin-top:16px; padding:24px clamp(20px,4vw,36px); border:1px solid rgba(255,255,255,.16); border-radius:4px 18px 4px 18px; background:radial-gradient(circle at 80% 50%,rgba(201,184,255,.1),transparent 25%),linear-gradient(125deg,#141414,#080808); }
+  .focus-card h2 { margin:8px 0 5px; color:#eee; font-size:19px; font-weight:500; }
+  .focus-card p { color:#999; font-size:11px; line-height:1.7; }
+  .focus-clock { color:#f5f3ff; font:clamp(36px,6vw,58px)/1 ui-monospace,Consolas,monospace; letter-spacing:-.08em; font-variant-numeric:tabular-nums; }
+  .focus-controls { display:flex; gap:8px; margin-top:15px; }
+  .focus-phase { color:var(--accent-lilac)!important; font:9px ui-monospace,Consolas,monospace; letter-spacing:.14em; }
+  .quick-find-trigger { margin-left:auto; align-self:center; padding:9px 13px; border:1px solid rgba(255,255,255,.22); border-radius:999px; background:rgba(255,255,255,.06); color:#ddd; font:10px ui-monospace,Consolas,monospace; letter-spacing:.06em; cursor:pointer; transition:background .2s,transform .2s,border-color .2s; }
+  .quick-find-trigger:hover { transform:translateY(-1px); border-color:var(--accent-lilac); background:rgba(201,184,255,.12); }
+  .quick-find-trigger kbd { margin-left:8px; color:#999; font:9px ui-monospace,Consolas,monospace; }
+  .quick-find { position:fixed; inset:0; z-index:20; display:grid; place-items:start center; padding: min(16vh,130px) 18px 24px; background:rgba(0,0,0,.66); backdrop-filter:blur(10px); }
+  .quick-find[hidden] { display:none; }
+  .quick-find-panel { width:min(650px,100%); overflow:hidden; border:1px solid rgba(255,255,255,.24); border-radius:8px 24px 8px 24px; background:linear-gradient(145deg,#18181a,#0b0b0c); box-shadow:0 34px 100px #000b; animation:cardEnter .24s ease both; }
+  .quick-find-top { padding:16px; border-bottom:1px solid rgba(255,255,255,.12); }
+  .quick-find-input { width:100%; padding:13px 15px; border:1px solid rgba(255,255,255,.16); border-radius:4px 14px 4px 14px; outline:none; background:#0b0b0c; color:#f5f2fa; font:inherit; font-size:14px; }
+  .quick-find-input:focus { border-color:var(--accent-lilac); box-shadow:0 0 0 3px rgba(201,184,255,.1); }
+  .quick-find-caption { display:flex; justify-content:space-between; gap:10px; padding:13px 18px 8px; color:#777; font:9px ui-monospace,Consolas,monospace; letter-spacing:.12em; }
+  .quick-find-results { max-height:min(52vh,430px); overflow:auto; padding:4px 9px 12px; }
+  .quick-find-item { display:grid; width:100%; grid-template-columns:38px 1fr auto; align-items:center; gap:12px; padding:11px 12px; border:1px solid transparent; border-radius:3px 12px 3px 12px; background:transparent; color:#eee; text-align:left; cursor:pointer; }
+  .quick-find-item:hover,.quick-find-item[aria-selected="true"] { border-color:rgba(201,184,255,.38); background:rgba(201,184,255,.1); }
+  .quick-find-icon { width:34px; height:34px; display:grid; place-items:center; border:1px solid rgba(255,255,255,.12); border-radius:50%; background:rgba(255,255,255,.04); }
+  .quick-find-item strong { display:block; font-size:12px; font-weight:500; }
+  .quick-find-item small { display:block; margin-top:3px; color:#888; font-size:10px; }
+  .quick-find-item em { color:#777; font:9px ui-monospace,Consolas,monospace; font-style:normal; }
+  .quick-find-empty { padding:22px; color:#999; text-align:center; font-size:12px; }
+  .quick-find-foot { display:flex; gap:15px; padding:11px 18px; border-top:1px solid rgba(255,255,255,.1); color:#777; font:9px ui-monospace,Consolas,monospace; }
+  body.modal-open { overflow:hidden; }
+  body.home-view .quick-find-trigger { border-color:rgba(0,0,0,.2); background:#ffffff88; color:#222; }
+  @media(max-width:600px) { .quick-find-trigger { font-size:0; padding:10px 12px; } .quick-find-trigger::before { content:'⌕'; font:22px/1 sans-serif; } .quick-find-trigger kbd { display:none; } .quick-find { padding-top:9vh; } }
+  @media(max-width:600px) { .focus-card { grid-template-columns:1fr; } .focus-clock { grid-row:1; } }
+  .mem-card { appearance:none; color:#eee; font-family:inherit; }
+  .ms-hole { appearance:none; color:#fff; font-family:inherit; }
+  #msResult { min-height:20px; text-align:center; margin-top:10px; color:#aaa; font-size:12px; }
+  .quote-feature { display:grid; grid-template-columns:1fr auto; align-items:center; gap:18px; margin:8px 0 18px; padding:17px 22px; border:1px solid rgba(0,0,0,.16); border-radius:3px 18px 3px 18px; background:linear-gradient(105deg,rgba(250,249,246,.95),rgba(231,230,226,.92)); box-shadow:0 14px 36px rgba(0,0,0,.07); }
+  .quote-feature .api-tile-head { color:#666; }
+  .quote-feature .api-quote { margin:8px 0 4px; color:#161616; font-size:clamp(14px,1.8vw,19px); }
+  .quote-feature .api-byline { color:#777; }
+  .quote-feature .api-reload { color:#514276; }
+  .glow-feature { --mx:50%;--my:50%; position:relative; isolation:isolate; display:grid; grid-template-columns:minmax(200px,.7fr) 1.3fr; gap:clamp(20px,4vw,48px); align-items:center; overflow:hidden; margin:28px 0 42px; padding:12px; border:1px solid rgba(255,255,255,.2); border-radius:24px 5px 24px 5px; background:linear-gradient(125deg,#17161b,#09090b 65%); box-shadow:0 26px 80px rgba(0,0,0,.28); transition:transform .4s cubic-bezier(.2,.7,.2,1); }
+  .glow-feature::before { content:""; position:absolute; z-index:-1; inset:-1px; border-radius:inherit; padding:1px; background:radial-gradient(360px circle at var(--mx) var(--my),rgba(201,184,255,.9),transparent 55%); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; }
+  .glow-feature::after { content:""; position:absolute; z-index:-1; width:320px; aspect-ratio:1; left:calc(var(--mx) - 160px); top:calc(var(--my) - 160px); background:radial-gradient(circle,rgba(165,127,255,.13),transparent 68%); pointer-events:none; }
+  .glow-art { position:relative; min-height:310px; overflow:hidden; border-radius:17px 4px 17px 4px; background:#17131f; }
+  .glow-art img { width:100%; height:100%; min-height:310px; position:absolute; inset:0; object-fit:cover; object-position:center 25%; transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s; }
+  .glow-feature:hover .glow-art img { transform:scale(1.04); filter:saturate(1.1); }
+  .glow-art::after { content:"FEATURED FAN ART / 01"; position:absolute; left:13px; bottom:13px; padding:6px 9px; border:1px solid #ffffff55; border-radius:999px; color:#fff; background:#09080bbb; backdrop-filter:blur(8px); font:8px ui-monospace,monospace; letter-spacing:.1em; }
+  .glow-copy { position:relative; z-index:1; padding:22px clamp(6px,2vw,20px) 22px 0; }
+  .glow-kicker { color:#c9b8ff; font:9px ui-monospace,monospace; letter-spacing:.2em; }
+  .glow-copy h2 { margin:14px 0 12px; color:#f5f2fa; font-size:clamp(27px,4vw,43px); line-height:1.08; font-weight:400; letter-spacing:-.055em; }
+  .glow-copy p { max-width:600px; color:#aaa7af; font-size:12px; line-height:1.9; }
+  .glow-credit { display:block; margin-top:14px; color:#817d89; font-size:10px; }
+  .glow-credit a { color:#c9b8ff; }
+  .glow-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:19px; }
+  .glow-actions button { padding:10px 14px; border:1px solid #ffffff35; border-radius:999px; color:#eee; background:#ffffff0a; cursor:pointer; }
+  .glow-actions button:first-child { color:#151219; border-color:#d9cfff; background:#d9cfff; }
+  .weather-card { grid-column:1/-1; display:grid; grid-template-columns:1fr auto; gap:15px; align-items:center; padding:19px 21px; border:1px solid var(--line-soft); border-radius:4px 18px 4px 18px; background:linear-gradient(120deg,#111,#09090a); }
+  .weather-form { display:flex; gap:8px; margin-top:12px; }
+  .weather-form input { min-width:0; width:min(260px,60vw); padding:10px 12px; border:1px solid #ffffff24; border-radius:3px 12px 3px 12px; color:#eee; background:#080809; font:inherit; font-size:11px; }
+  .weather-result { min-width:150px; color:#f3f0fa; text-align:right; }
+  .weather-temp { display:block; font:36px ui-monospace,monospace; letter-spacing:-.08em; }
+  .weather-note { color:#87838d; font-size:9px; line-height:1.6; }
+  .weather-air { margin-top:7px; color:#c9f3df; font:9px/1.6 ui-monospace,Consolas,monospace; letter-spacing:.02em; }
+  .weather-note a { color:#c9b8ff; }
+  @media(max-width:760px) { .glow-feature { grid-template-columns:1fr; gap:12px; padding:9px; border-radius:20px 4px; } .glow-art,.glow-art img { min-height:260px; max-height:360px; } .glow-copy { padding:12px 15px 19px; } }
+  @media(max-width:500px) { .quote-feature { grid-template-columns:1fr; gap:8px; padding:15px; } .quote-feature .api-foot { justify-content:space-between; } .weather-card { grid-template-columns:1fr; } .weather-result { text-align:left; } }
+  /* Compact first screen: intro, shortcuts and a featured fan-art card share one stage. */
+  body.home-view .brand { padding:10px 0; gap:10px; }
+  body.home-view .brand-logo { width:38px; height:38px; }
+  body.home-view .tab-nav { margin:0 0 11px; }
+  body.home-view .tab-btn { padding-top:10px; padding-bottom:10px; }
+  .quote-feature { min-height:72px; margin:7px 0 12px; padding:9px 16px; gap:12px; }
+  .quote-feature .api-tile-head { font-size:8px; }
+  .quote-feature .api-quote { margin:4px 0 1px; font-size:clamp(13px,1.5vw,17px); line-height:1.4; }
+  .quote-feature .api-reload { white-space:nowrap; }
+  .home-stage { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr); gap:14px; align-items:stretch; }
+  .home-stage-main { display:grid; grid-template-rows:minmax(242px,1fr) auto; gap:10px; min-width:0; }
+  body.home-view .home-intro { min-height:242px; height:100%; margin:0; padding:20px 24px; grid-template-columns:minmax(0,1fr) 155px; gap:4px; }
+  body.home-view .home-copy { max-width:100%; padding:0; }
+  body.home-view .home-intro h1 { margin:9px 0 7px; font-size:clamp(39px,4.4vw,56px); }
+  body.home-view .home-intro p { font-size:11px; line-height:1.65; }
+  body.home-view .home-meta { gap:13px; margin-top:13px; font-size:8px; }
+  body.home-view .eyebrow { font-size:8px; letter-spacing:.16em; }
+  body.home-view .home-stamp { right:10px; top:10px; font-size:7px; }
+  body.home-view .home-coord { right:13px; bottom:9px; font-size:7px; }
+  body.home-view .orbit-art { width:150px; height:150px; transform:translateX(5px); }
+  body.home-view .orbit-art .ring { width:130px; height:130px; }
+  body.home-view .orbit-art .ring::before { width:90px; height:90px; top:19px; left:19px; }
+  body.home-view .orbit-art .ring::after { width:52px; height:52px; top:37px; left:37px; }
+  body.home-view .orbit-art .node { top:4px; left:85px; }
+  .home-stage .home-links { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  .home-stage .home-link { min-height:68px; padding:9px 12px; border-radius:2px 12px 2px 12px; }
+  .home-stage .home-link span { font-size:7px; }
+  .home-stage .home-link strong { font-size:12px; }
+  .home-stage .home-link small { font-size:7px; }
+  .home-stage .home-link i { right:10px; bottom:8px; width:18px; height:18px; font-size:11px; }
+  .home-stage .glow-feature { min-height:100%; grid-template-columns:minmax(125px,.78fr) minmax(0,1.22fr); gap:13px; margin:0; padding:10px; border-radius:22px 5px 22px 5px; }
+  .home-stage .glow-art,.home-stage .glow-art img { min-height:100%; height:100%; }
+  .home-stage .glow-copy { align-self:center; padding:15px 10px 15px 0; }
+  .home-stage .glow-copy h2 { margin:10px 0 8px; font-size:clamp(22px,2.5vw,31px); }
+  .home-stage .glow-copy p { font-size:10px; line-height:1.7; }
+  .home-stage .glow-credit { margin-top:9px; font-size:9px; line-height:1.6; }
+  .home-stage .glow-actions { gap:6px; margin-top:11px; }
+  .home-stage .glow-actions button { padding:7px 9px; font-size:9px; }
+  @media(max-width:900px) {
+    .home-stage { grid-template-columns:minmax(0,1fr) minmax(295px,.82fr); gap:10px; }
+    body.home-view .home-intro { grid-template-columns:minmax(0,1fr) 115px; padding:18px 18px; }
+    body.home-view .orbit-art { width:112px; height:130px; }
+    body.home-view .orbit-art .ring { width:105px; height:105px; }
+    body.home-view .orbit-art .ring::before { width:73px; height:73px; top:15px; left:15px; }
+    body.home-view .orbit-art .ring::after { width:43px; height:43px; top:29px; left:29px; }
+    body.home-view .orbit-art .node { top:2px; left:69px; }
+  }
+  @media(max-width:760px) {
+    .home-stage { grid-template-columns:1fr; }
+    .home-stage-main { grid-template-rows:auto auto; }
+    body.home-view .home-intro { min-height:245px; grid-template-columns:minmax(0,1fr) 140px; padding:22px 20px; }
+    body.home-view .orbit-art { width:138px; height:142px; }
+    .home-stage .glow-feature { min-height:0; grid-template-columns:minmax(130px,.7fr) 1.3fr; }
+    .home-stage .glow-art,.home-stage .glow-art img { min-height:220px; }
+  }
+  @media(max-width:500px) {
+    .quote-feature { grid-template-columns:minmax(0,1fr) auto; gap:8px; padding:9px 12px; }
+    .home-stage .home-link { min-height:64px; }
+    body.home-view .home-intro { grid-template-columns:minmax(0,1fr) 90px; min-height:225px; padding:20px 15px; }
+    body.home-view .home-intro h1 { font-size:36px; }
+    body.home-view .orbit-art { width:88px; height:110px; }
+    body.home-view .orbit-art .ring { width:83px; height:83px; }
+    body.home-view .orbit-art .ring::before { width:58px; height:58px; top:12px; left:12px; }
+    body.home-view .orbit-art .ring::after { width:34px; height:34px; top:23px; left:23px; }
+    body.home-view .orbit-art .node { top:0; left:54px; }
+    .home-stage .glow-feature { grid-template-columns:1fr; }
+    .home-stage .glow-art,.home-stage .glow-art img { min-height:200px; max-height:240px; }
+    .home-stage .glow-copy { padding:7px 9px 12px; }
+  }
 </style>
 </head>
 <body class="home-view" data-page="home">
@@ -760,31 +940,52 @@
 
   <!-- 导航 -->
   <nav class="tab-nav">
-    <button class="tab-btn active" data-tab="home">首页</button>
-    <button class="tab-btn" data-tab="code">源码库</button>
-    <button class="tab-btn" data-tab="game">小游戏</button>
-    <button class="tab-btn" data-tab="gallery">角色画廊</button>
-    <button class="tab-btn" data-tab="tool">常用工具</button>
+    <button class="tab-btn active" type="button" data-tab="home" aria-controls="home" aria-current="page">首页</button>
+    <button class="tab-btn" type="button" data-tab="code" aria-controls="code">源码库</button>
+    <button class="tab-btn" type="button" data-tab="game" aria-controls="game">小游戏</button>
+    <button class="tab-btn" type="button" data-tab="gallery" aria-controls="gallery">角色画廊</button>
+    <button class="tab-btn" type="button" data-tab="tool" aria-controls="tool">常用工具</button>
+    <button class="quick-find-trigger" id="quickFindOpen" type="button" aria-haspopup="dialog" aria-controls="quickFindDialog">⌕　快速查找 <kbd>⌘ K</kbd></button>
   </nav>
+
+  <div class="quick-find" id="quickFindDialog" role="dialog" aria-modal="true" aria-label="全站快速查找" hidden>
+    <div class="quick-find-panel">
+      <div class="quick-find-top"><input class="quick-find-input" id="quickFindInput" type="search" autocomplete="off" placeholder="搜索页面、小游戏或工具…" aria-label="搜索页面、小游戏或工具"></div>
+      <div class="quick-find-caption"><span id="quickFindCount">EXPLORE THE STUDIO</span><span>↑ ↓ 选择　↵ 打开　ESC 关闭</span></div>
+      <div class="quick-find-results" id="quickFindResults" role="listbox" aria-label="查找结果"></div>
+      <div class="quick-find-foot"><span>CTRL / ⌘ + K　快速呼出</span><span>随时找到你想去的地方</span></div>
+    </div>
+  </div>
 
   <!-- 首页：黑白几何入口卡片 -->
   <section class="tab active" id="home">
-    <div class="home-intro">
-      <div class="home-copy">
-        <div class="eyebrow">PERSONAL DIGITAL SPACE / 01</div>
-        <h1>兆字节<br><span>Studio</span></h1>
-        <p>一个装下小项目、游戏和灵感的个人空间。<br>随便看看，找到你感兴趣的那一角。</p>
-        <div class="home-meta"><span>MAKE THINGS</span><span>PLAY A LITTLE</span></div>
+    <article class="quote-feature" aria-live="polite">
+      <div class="quote-feature-label"><div class="api-tile-head"><span>WORDS / A LITTLE INSPIRATION</span><span class="api-live">LIVE</span></div><p class="api-quote" id="quoteText">正在接收一句灵感…</p><span class="api-byline" id="quoteAuthor">DUMMYJSON API</span></div>
+      <button class="api-reload" id="quoteReload" type="button">换一句 ↻</button>
+    </article>
+    <div class="home-stage">
+      <div class="home-stage-main">
+        <div class="home-intro">
+          <div class="home-copy">
+            <div class="eyebrow">PERSONAL DIGITAL SPACE / 01</div>
+            <h1>兆字节<br><span>Studio</span></h1>
+            <p>小项目、游戏和灵感的私人角落。<br>挑一张卡片，随心逛逛。</p>
+            <div class="home-meta"><span>MAKE THINGS</span><span>PLAY A LITTLE</span></div>
+          </div>
+          <div class="orbit-art" aria-hidden="true"><div class="ring"><i class="node"></i></div><i class="core"></i><span class="cross">＋</span></div>
+          <span class="home-stamp">FORM / MOTION / PLAY</span><span class="home-coord">EST. 2026　·　CHAPTER 01</span>
+        </div>
+        <div class="home-links" aria-label="快速入口">
+          <button class="home-link" data-open-tab="code"><span>01 / PROJECTS</span><strong>源码与项目</strong><small>IDEAS INTO INTERFACES</small><i>↗</i></button>
+          <button class="home-link" data-open-tab="game"><span>02 / PLAYGROUND</span><strong>小游戏集合</strong><small>FLAPPY MONA · ARCADE</small><i>↗</i></button>
+          <button class="home-link" data-open-tab="gallery"><span>03 / FAN ART</span><strong>角色画廊</strong><small>CHARACTERS & WORLDS</small><i>↗</i></button>
+          <button class="home-link" data-open-tab="tool"><span>04 / TOOLBOX</span><strong>常用工具</strong><small>SMALL UTILITIES, READY</small><i>↗</i></button>
+        </div>
       </div>
-      <div class="orbit-art" aria-hidden="true"><div class="ring"><i class="node"></i></div><i class="core"></i><span class="cross">＋</span></div>
-      <span class="home-stamp">FORM / MOTION / PLAY</span><span class="home-coord">EST. 2026　·　CHAPTER 01</span>
-    </div>
-    <div class="section-label">EXPLORE / 选择一个入口</div>
-    <div class="home-links">
-      <button class="home-link" data-open-tab="code"><span>01 / PROJECTS</span><strong>源码与项目</strong><small>IDEAS INTO INTERFACES</small><i>↗</i></button>
-      <button class="home-link" data-open-tab="game"><span>02 / PLAYGROUND</span><strong>小游戏集合</strong><small>FLAPPY MONA · ARCADE</small><i>↗</i></button>
-      <button class="home-link" data-open-tab="gallery"><span>03 / FAN ART</span><strong>角色画廊</strong><small>CHARACTERS & WORLDS</small><i>↗</i></button>
-      <button class="home-link" data-open-tab="tool"><span>04 / TOOLBOX</span><strong>常用工具</strong><small>SMALL UTILITIES, READY</small><i>↗</i></button>
+      <article class="glow-feature" id="glowFeature">
+        <div class="glow-art"><img src="https://pbs.twimg.com/media/F-xfJwzaQAAd_vr.jpg" alt="维尔汀同人插画，Natsugu 创作，点击查看作品来源" loading="lazy"><span class="art-index">01 / TIMEKEEPER</span></div>
+        <div class="glow-copy"><div class="glow-kicker">MY LITTLE DIGITAL LOUNGE / 01</div><h2>喜欢的角色，<br>和一点点灵感。</h2><p>放下小项目、游戏与喜欢的角色。黑白线条安静陪伴，灵感偶尔发光。欢迎慢慢逛。</p><span class="glow-credit">维尔汀二创 · Natsugu · <a href="https://twiman.net/user/819129052904570880/illust/1723857587806912823" target="_blank" rel="noopener noreferrer">原作来源 ↗</a></span><div class="glow-actions"><button type="button" data-open-tab="gallery">更多角色二创　↗</button><button type="button" data-open-tab="game">去玩一局　↗</button></div></div>
+      </article>
     </div>
     <div class="api-card" aria-live="polite">
       <img class="api-avatar" id="githubAvatar" src="https://github.com/menxiaoyi.png?size=96" alt="GitHub 头像">
@@ -794,14 +995,25 @@
     </div>
     <div class="api-tiles">
       <article class="api-tile" aria-live="polite">
-        <div class="api-tile-head"><span>WORDS / RANDOM QUOTE</span><span class="api-live">LIVE</span></div>
-        <p class="api-quote" id="quoteText">正在接收一句灵感…</p>
-        <div class="api-foot"><span class="api-byline" id="quoteAuthor">DUMMYJSON API</span><button class="api-reload" id="quoteReload" type="button">ANOTHER ↻</button></div>
-      </article>
-      <article class="api-tile" aria-live="polite">
         <div class="api-tile-head"><span>DEV / HACKER NEWS TOP</span><span class="api-live">LIVE</span></div>
         <a class="api-story" id="hnStory" href="https://news.ycombinator.com/" target="_blank" rel="noopener noreferrer">正在读取开发者头条…</a>
         <div class="api-foot"><span id="hnScore">HACKER NEWS API</span><a class="api-link" id="hnOpen" href="https://news.ycombinator.com/" target="_blank" rel="noopener noreferrer">OPEN STORY ↗</a></div>
+      </article>
+    </div>
+    <div class="api-extra">
+      <article class="api-repo" aria-live="polite">
+        <div class="api-tile-head"><span>BUILD / LATEST PUBLIC REPOSITORY</span><span class="api-live">LIVE</span></div>
+        <a class="api-repo-title" id="repoTitle" href="https://github.com/menxiaoyi?tab=repositories" target="_blank" rel="noopener noreferrer">正在读取最近的作品…</a>
+        <p class="api-repo-description" id="repoDescription">从 GitHub 获取公开项目动态。</p>
+        <div class="api-repo-meta"><span id="repoLanguage">GITHUB REST API</span><span id="repoStars">★ —</span><span id="repoUpdated">UPDATED —</span></div>
+      </article>
+      <article class="api-cat" aria-live="polite">
+        <img id="catImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Crect width='240' height='180' fill='%23101010'/%3E%3Cpath d='M0 160 240 20M-30 120 120 -20M120 210 270 60' stroke='%23303030'/%3E%3Ccircle cx='120' cy='90' r='36' fill='none' stroke='%23808080'/%3E%3Cpath d='m100 68-3-25 22 14 22-14-3 25' fill='none' stroke='%23bbb' stroke-width='3'/%3E%3C/svg%3E" alt="随机猫咪照片" loading="lazy">
+        <div><div class="api-tile-head"><span>SOFT / CAT SIGNAL</span><span class="api-live">LIVE</span></div><p class="api-cat-title">给灵感一点猫猫能量。</p><div class="api-foot"><span id="catStatus">THE CAT API</span><button class="api-reload" id="catReload" type="button">换一只　↻</button></div></div>
+      </article>
+      <article class="weather-card" aria-live="polite">
+        <div><div class="api-tile-head"><span>WEATHER / AIR QUALITY</span><span class="api-live">OPEN-METEO</span></div><p style="margin-top:9px;color:#eee;font-size:14px">查一座城市的天气与空气质量</p><form class="weather-form" id="weatherForm"><input id="weatherCity" type="search" minlength="2" maxlength="80" placeholder="输入城市名，例如 Shanghai" aria-label="查询城市天气" required><button class="api-reload" type="submit">查询 ↗</button></form><p class="weather-note" style="margin-top:10px">无需定位权限 · 免费 API 非商业使用 · <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> 天气及空气质量数据 CC BY 4.0</p></div>
+        <div class="weather-result"><span class="weather-temp" id="weatherTemp">—°</span><span id="weatherSummary">搜索城市开始查询</span><p class="weather-note" id="weatherPlace"></p><p class="weather-air" id="weatherAir">空气质量 · 等待查询</p></div>
       </article>
     </div>
   </section>
@@ -824,6 +1036,14 @@
       <article class="art-card">
         <div class="art-image"><span class="art-index">03 / ANEMO</span><img loading="lazy" decoding="async" src="https://s1.zerochan.net/Venti.600.4233673.jpg" alt="温迪同人插画，由 amura zoldyck 创作"></div>
         <div class="art-info"><h2>温迪 · 原神</h2><p>同人插画 · amura zoldyck</p><a href="https://www.zerochan.net/4233673" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL ↗</a></div>
+      </article>
+      <article class="art-card">
+        <div class="art-image"><span class="art-index">04 / HYDRO</span><img loading="lazy" decoding="async" src="https://static.zerochan.net/Furina.de.Fontaine.1024.4066078.webp" alt="芙宁娜二次创作插画，由シロセ创作"></div>
+        <div class="art-info"><h2>芙宁娜 · 水之华</h2><p>同人插画 · シロセ / sirose</p><a href="https://www.pixiv.net/en/artworks/113673826" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL ↗</a></div>
+      </article>
+      <article class="art-card">
+        <div class="art-image"><span class="art-index">05 / HYDRO</span><img loading="lazy" decoding="async" src="https://static.zerochan.net/Furina.full.4070110.jpg" alt="芙宁娜二次创作插画，由 aji135777 创作"></div>
+        <div class="art-info"><h2>芙宁娜 · 舞台之外</h2><p>同人插画 · aji135777</p><a href="https://www.pixiv.net/en/artworks/113824900" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL ↗</a></div>
       </article>
     </div>
   </section>
@@ -906,6 +1126,7 @@
       <div class="desc">翻开两张相同的牌即可消除，全部消除即胜利</div>
       <div class="mem-info">
         <span>步数 <b id="memMoves">0</b></span>
+        <span id="memStatus" role="status" aria-live="polite">找出全部配对</span>
         <button class="btn ghost" id="memReset" style="padding:6px 14px;font-size:12px;">重新开始</button>
       </div>
       <div class="mem-grid" id="memGrid"></div>
@@ -929,6 +1150,7 @@
         <button class="btn ghost" id="msStart" style="padding:6px 14px;font-size:12px;">开始</button>
       </div>
       <div class="ms-grid" id="msGrid"></div>
+      <div id="msResult" role="status" aria-live="polite">准备好就开始吧。</div>
     </div>
   </section>
 
@@ -949,6 +1171,10 @@
         <div class="ic">ℹ️</div><h3>关于我们</h3><p>了解兆字节 Studio</p><span class="go">了解更多</span>
       </a>
     </div>
+    <article class="focus-card">
+      <div><div class="page-kicker">FOCUS / A SMALL PAUSE</div><h2>给自己一点专注时间</h2><p id="focusPhase" class="focus-phase">FOCUS SESSION · 25 MIN</p><p>开始一段轻盈的番茄钟。离开页面时计时也会继续。</p><div class="focus-controls"><button class="btn" id="focusToggle" type="button">开始专注</button><button class="btn ghost" id="focusReset" type="button">重新开始</button></div></div>
+      <div class="focus-clock" id="focusClock" role="timer" aria-live="off">25:00</div>
+    </article>
   </section>
 </div>
 
@@ -956,14 +1182,16 @@
   <a href="https://icp.gov.moe/?keyword=20265090" target="_blank">萌ICP备20265090号</a>
 </footer>
 
+
 <script>
 /* ===== 标签切换 ===== */
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabs = document.querySelectorAll('.tab');
 tabBtns.forEach(b => b.addEventListener('click', () => {
-  tabBtns.forEach(x => x.classList.remove('active'));
+  tabBtns.forEach(x => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
   tabs.forEach(x => x.classList.remove('active'));
   b.classList.add('active');
+  b.setAttribute('aria-current','page');
   document.getElementById(b.dataset.tab).classList.add('active');
   document.body.dataset.page = b.dataset.tab;
   document.body.classList.toggle('home-view', b.dataset.tab === 'home');
@@ -971,13 +1199,72 @@ tabBtns.forEach(b => b.addEventListener('click', () => {
 }));
 document.querySelectorAll('[data-open-tab]').forEach(b => b.addEventListener('click', () => {
   const target = b.dataset.openTab;
-  tabBtns.forEach(x => x.classList.toggle('active', x.dataset.tab === target));
+  tabBtns.forEach(x => { const active=x.dataset.tab===target; x.classList.toggle('active',active); if(active)x.setAttribute('aria-current','page');else x.removeAttribute('aria-current'); });
   tabs.forEach(x => x.classList.toggle('active', x.id === target));
   document.body.dataset.page = target;
   document.body.classList.toggle('home-view', target === 'home');
   window.dispatchEvent(new Event('tabchange'));
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }));
+document.querySelectorAll('[data-scroll-to]').forEach(b => b.addEventListener('click', () => {
+  document.getElementById(b.dataset.scrollTo)?.scrollIntoView({ behavior:'smooth', block:'start' });
+}));
+
+/* ===== Whole-site quick finder: keyboard friendly and searchable ===== */
+(function(){
+  const dialog=document.getElementById('quickFindDialog');
+  const input=document.getElementById('quickFindInput');
+  const results=document.getElementById('quickFindResults');
+  const count=document.getElementById('quickFindCount');
+  const items=[
+    {title:'首页',description:'回到黑白斜切的主视觉',icon:'◐',section:'home',keywords:'主页 首页 studio home'},
+    {title:'源码与项目',description:'查看公开代码与小项目',icon:'⌘',section:'code',keywords:'代码 github 项目 开源 source'},
+    {title:'小游戏集合',description:'找一款游戏，轻松玩一会儿',icon:'🎮',section:'game',focus:'monaCanvas',keywords:'游戏 小游戏 play arcade'},
+    {title:'Flappy Mona',description:'点击、触屏或空格，带 Mona 飞起来',icon:'🐱',section:'game',focus:'monaCanvas',keywords:'mona github universe flappy 飞行'},
+    {title:'飞船射击',description:'用鼠标或触屏瞄准，躲开障碍',icon:'✦',section:'game',focus:'shootCanvas',keywords:'射击 飞船 spaceship'},
+    {title:'角色画廊',description:'维尔汀、芙宁娜、温迪同人作品',icon:'◇',section:'gallery',keywords:'角色 美少女 同人 维尔汀 芙宁娜 温迪'},
+    {title:'常用工具',description:'打开翻译器和专注计时器',icon:'◫',section:'tool',keywords:'工具 toolbox'},
+    {title:'奈亚语翻译器',description:'UTF-8 与 Shift_JIS 乱码互转',icon:'🌀',href:'translator.html',keywords:'翻译 乱码 translator'},
+    {title:'使用指南',description:'快速了解站点各项功能',icon:'⌖',href:'使用指南.html',keywords:'指南 帮助 使用'},
+    {title:'关于兆字节 Studio',description:'这个小站的设计与内容说明',icon:'✧',href:'关于我们.html',keywords:'关于 作者 studio'},
+    {title:'GitHub 主页',description:'浏览所有公开项目',icon:'◉',href:'https://github.com/menxiaoyi',external:true,keywords:'github 代码 公开'}
+  ];
+  let visible=[],selected=0;
+  function close(){dialog.hidden=true;document.body.classList.remove('modal-open');document.getElementById('quickFindOpen').focus();}
+  function open(){dialog.hidden=false;document.body.classList.add('modal-open');input.value='';draw();requestAnimationFrame(()=>input.focus());}
+  function draw(){
+    const query=input.value.trim().toLocaleLowerCase();
+    visible=items.filter(item=>!query||(item.title+' '+item.description+' '+item.keywords).toLocaleLowerCase().includes(query));
+    selected=Math.min(selected,Math.max(0,visible.length-1));results.replaceChildren();
+    count.textContent=query?visible.length+' RESULTS':'EXPLORE THE STUDIO';
+    if(!visible.length){const empty=document.createElement('div');empty.className='quick-find-empty';empty.textContent='没有找到相关内容，换个词试试。';results.appendChild(empty);return;}
+    visible.forEach((item,index)=>{
+      const button=document.createElement('button');button.type='button';button.className='quick-find-item';button.setAttribute('role','option');button.setAttribute('aria-selected',String(index===selected));
+      const icon=document.createElement('span');icon.className='quick-find-icon';icon.textContent=item.icon;
+      const body=document.createElement('span');const title=document.createElement('strong');title.textContent=item.title;const description=document.createElement('small');description.textContent=item.description;body.append(title,description);
+      const hint=document.createElement('em');hint.textContent=item.external?'LINK ↗':item.href?'OPEN ↗':'GO ↵';button.append(icon,body,hint);
+      button.addEventListener('mouseenter',()=>{selected=index;syncSelection();});button.addEventListener('click',()=>choose(item));results.appendChild(button);
+    });
+  }
+  function syncSelection(){results.querySelectorAll('.quick-find-item').forEach((button,index)=>button.setAttribute('aria-selected',String(index===selected)));results.querySelector('.quick-find-item[aria-selected="true"]')?.scrollIntoView({block:'nearest'});}
+  function choose(item){
+    close();
+    if(item.href){window.location.href=item.href;return;}
+    document.querySelector('.tab-btn[data-tab="'+item.section+'"]')?.click();
+    if(item.focus)setTimeout(()=>document.getElementById(item.focus)?.scrollIntoView({behavior:'smooth',block:'center'}),90);
+  }
+  document.getElementById('quickFindOpen').addEventListener('click',open);
+  input.addEventListener('input',()=>{selected=0;draw();});
+  dialog.addEventListener('click',event=>{if(event.target===dialog)close();});
+  document.addEventListener('keydown',event=>{
+    if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();open();return;}
+    if(dialog.hidden)return;
+    if(event.key==='Escape'){event.preventDefault();close();}
+    else if(event.key==='ArrowDown'&&visible.length){event.preventDefault();selected=(selected+1)%visible.length;syncSelection();}
+    else if(event.key==='ArrowUp'&&visible.length){event.preventDefault();selected=(selected-1+visible.length)%visible.length;syncSelection();}
+    else if(event.key==='Enter'&&visible[selected]){event.preventDefault();choose(visible[selected]);}
+  });
+})();
 
 /* ===== GitHub public profile API ===== */
 fetch('https://api.github.com/users/menxiaoyi', { headers: { Accept: 'application/vnd.github+json' } })
@@ -1039,6 +1326,127 @@ async function loadHackerNews(){
   }
 }
 loadHackerNews();
+
+/* ===== Extra public APIs: latest build + a tiny cat break ===== */
+async function fetchWithTimeout(url, options={}){
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),8000);
+  try{return await fetch(url,{...options,signal:controller.signal});}
+  finally{clearTimeout(timeout);}
+}
+async function loadLatestRepository(){
+  const title=document.getElementById('repoTitle');
+  const description=document.getElementById('repoDescription');
+  try{
+    const response=await fetchWithTimeout('https://api.github.com/users/menxiaoyi/repos?sort=updated&direction=desc&per_page=10',{headers:{Accept:'application/vnd.github+json'}});
+    if(!response.ok)throw new Error('GitHub API unavailable');
+    const repos=await response.json();
+    const repo=(Array.isArray(repos)?repos:[]).find(item=>!item.fork) || repos[0];
+    if(!repo)throw new Error('No public repositories');
+    title.textContent=repo.name;
+    title.href=repo.html_url;
+    description.textContent=repo.description||'一件持续打磨中的小作品。点开看看源码与更新。';
+    document.getElementById('repoLanguage').textContent=(repo.language||'OPEN SOURCE').toUpperCase();
+    document.getElementById('repoStars').textContent='★ '+(repo.stargazers_count||0);
+    document.getElementById('repoUpdated').textContent='UPDATED '+new Date(repo.updated_at).toLocaleDateString('zh-CN');
+  }catch(_){
+    title.textContent='浏览全部公开项目 ↗';
+    title.href='https://github.com/menxiaoyi?tab=repositories';
+    description.textContent='项目动态暂时离线，点击去 GitHub 看看最近的作品。';
+    document.getElementById('repoLanguage').textContent='GITHUB / OFFLINE';
+    document.getElementById('repoStars').textContent='★ —';
+    document.getElementById('repoUpdated').textContent='TRY AGAIN LATER';
+  }
+}
+async function loadCat(){
+  const button=document.getElementById('catReload');
+  const image=document.getElementById('catImage');
+  const status=document.getElementById('catStatus');
+  button.disabled=true;status.textContent='FETCHING A LITTLE JOY';
+  try{
+    const response=await fetchWithTimeout('https://api.thecatapi.com/v1/images/search?size=med&mime_types=jpg,png');
+    if(!response.ok)throw new Error('Cat API unavailable');
+    const data=await response.json();
+    const imageUrl=data?.[0]?.url;
+    if(!imageUrl||!/^https:\/\//i.test(imageUrl))throw new Error('No cat image');
+    image.src=imageUrl;status.textContent='THE CAT API · ONLINE';
+  }catch(_){status.textContent='猫猫信号暂时离线';}
+  finally{button.disabled=false;}
+}
+document.getElementById('catReload').addEventListener('click',loadCat);
+loadLatestRepository();
+loadCat();
+async function loadWeather(city){
+  const temp=document.getElementById('weatherTemp'),summary=document.getElementById('weatherSummary'),place=document.getElementById('weatherPlace'),airLine=document.getElementById('weatherAir');
+  summary.textContent='正在查询…';airLine.textContent='天气与空气质量查询中…';
+  try{
+    const geoUrl=new URL('https://geocoding-api.open-meteo.com/v1/search');
+    geoUrl.search=new URLSearchParams({name:city,count:'1',language:'zh',format:'json'}).toString();
+    const geoResponse=await fetchWithTimeout(geoUrl);
+    if(!geoResponse.ok)throw new Error('城市搜索暂时不可用');
+    const geo=await geoResponse.json(),location=geo.results?.[0];
+    if(!location)throw new Error('没找到这座城市，试试英文拼写或加上国家名');
+    const forecastUrl=new URL('https://api.open-meteo.com/v1/forecast');
+    forecastUrl.search=new URLSearchParams({latitude:String(location.latitude),longitude:String(location.longitude),current:'temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m',timezone:'auto'}).toString();
+    const airUrl=new URL('https://air-quality-api.open-meteo.com/v1/air-quality');
+    airUrl.search=new URLSearchParams({latitude:String(location.latitude),longitude:String(location.longitude),current:'pm2_5,european_aqi,us_aqi',timezone:'auto'}).toString();
+    const [forecastResult,airResult]=await Promise.allSettled([fetchWithTimeout(forecastUrl),fetchWithTimeout(airUrl)]);
+    if(forecastResult.status!=='fulfilled'||!forecastResult.value.ok)throw new Error('天气服务暂时不可用');
+    const data=await forecastResult.value.json(),current=data.current||{};
+    let airCurrent=null;
+    if(airResult.status==='fulfilled'&&airResult.value.ok){const airData=await airResult.value.json();airCurrent=airData.current||null;}
+    const codes={0:'晴朗',1:'大致晴朗',2:'局部多云',3:'阴天',45:'雾',48:'冻雾',51:'毛毛雨',53:'小雨',55:'中雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',80:'阵雨',81:'强阵雨',82:'暴雨',95:'雷雨',96:'雷雨伴冰雹',99:'强雷雨'};
+    temp.textContent=Math.round(current.temperature_2m)+'°';
+    summary.textContent=codes[current.weather_code]||'天气已更新';
+    place.textContent=location.name+(location.admin1?' · '+location.admin1:'')+'　体感 '+Math.round(current.apparent_temperature)+'°　湿度 '+current.relative_humidity_2m+'%';
+    if(airCurrent&&Number.isFinite(airCurrent.pm2_5)){const aqi=airCurrent.european_aqi,label=Number.isFinite(aqi)?(aqi<=20?'优良':aqi<=40?'尚可':aqi<=60?'中等':aqi<=80?'较差':aqi<=100?'很差':'极差'):'AQI 暂缺';airLine.textContent='PM₂.₅ '+Math.round(airCurrent.pm2_5)+' μg/m³　·　EU AQI '+(Number.isFinite(aqi)?Math.round(aqi):'—')+' '+label;}else airLine.textContent='空气质量数据暂不可用';
+    try{localStorage.setItem('icesparkle-weather-city',city);localStorage.setItem('icesparkle-weather-cache',JSON.stringify({at:Date.now(),name:location.name,admin1:location.admin1,current,air:airCurrent}));}catch(_){}
+  }catch(error){summary.textContent=error.message||'天气查询失败';place.textContent='检查城市名或稍后重试。';airLine.textContent='空气质量将在天气查询成功后显示。';}
+}
+document.getElementById('weatherForm').addEventListener('submit',event=>{event.preventDefault();const city=document.getElementById('weatherCity').value.trim();if(city.length>=2)loadWeather(city);});
+try{const city=localStorage.getItem('icesparkle-weather-city');const cached=JSON.parse(localStorage.getItem('icesparkle-weather-cache')||'null');if(city){document.getElementById('weatherCity').value=city;if(cached&&Date.now()-cached.at<30*60*1000){const codes={0:'晴朗',1:'大致晴朗',2:'局部多云',3:'阴天',45:'雾',48:'冻雾',51:'毛毛雨',53:'小雨',55:'中雨',61:'小雨',63:'中雨',65:'大雨',71:'小雪',73:'中雪',75:'大雪',80:'阵雨',81:'强阵雨',82:'暴雨',95:'雷雨',96:'雷雨伴冰雹',99:'强雷雨'};document.getElementById('weatherTemp').textContent=Math.round(cached.current.temperature_2m)+'°';document.getElementById('weatherSummary').textContent=codes[cached.current.weather_code]||'天气已更新';document.getElementById('weatherPlace').textContent=(cached.name||city)+(cached.admin1?' · '+cached.admin1:'')+'　体感 '+Math.round(cached.current.apparent_temperature)+'°　湿度 '+cached.current.relative_humidity_2m+'%';if(cached.air&&Number.isFinite(cached.air.pm2_5)){const aqi=cached.air.european_aqi,label=Number.isFinite(aqi)?(aqi<=20?'优良':aqi<=40?'尚可':aqi<=60?'中等':aqi<=80?'较差':aqi<=100?'很差':'极差'):'AQI 暂缺';document.getElementById('weatherAir').textContent='PM₂.₅ '+Math.round(cached.air.pm2_5)+' μg/m³　·　EU AQI '+(Number.isFinite(aqi)?Math.round(aqi):'—')+' '+label;}else document.getElementById('weatherAir').textContent='空气质量数据暂不可用';}else loadWeather(city);}}catch(_){}
+const glowCard=document.getElementById('glowFeature');
+glowCard.addEventListener('pointermove',event=>{const rect=glowCard.getBoundingClientRect();glowCard.style.setProperty('--mx',(event.clientX-rect.left)+'px');glowCard.style.setProperty('--my',(event.clientY-rect.top)+'px');});
+glowCard.addEventListener('pointerleave',()=>{glowCard.style.setProperty('--mx','50%');glowCard.style.setProperty('--my','50%');});
+
+/* ===== Persistent focus timer with automatic short breaks ===== */
+(function(){
+  const clock=document.getElementById('focusClock');
+  const phaseLabel=document.getElementById('focusPhase');
+  const toggle=document.getElementById('focusToggle');
+  const reset=document.getElementById('focusReset');
+  if(!clock||!phaseLabel||!toggle||!reset)return;
+  const key='icesparkle-focus-timer-v1';
+  let phase='focus',remaining=25*60*1000,deadline=0,running=false,interval=0;
+  try{
+    const saved=JSON.parse(localStorage.getItem(key)||'null');
+    if(saved&&['focus','break'].includes(saved.phase)){
+      phase=saved.phase;remaining=Math.max(0,Number(saved.remaining)||0);deadline=Number(saved.deadline)||0;running=Boolean(saved.running);
+      if(running)remaining=Math.max(0,deadline-Date.now());
+    }
+  }catch(_){}
+  function persist(){try{localStorage.setItem(key,JSON.stringify({phase,remaining,deadline,running}));}catch(_){}}
+  function paint(){
+    const ms=running?Math.max(0,deadline-Date.now()):remaining;
+    const seconds=Math.ceil(ms/1000);
+    clock.textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
+    phaseLabel.textContent=phase==='focus'?'FOCUS SESSION · 25 MIN':'SOFT BREAK · 05 MIN';
+    toggle.textContent=running?'暂停':'继续';
+  }
+  function tick(){
+    remaining=Math.max(0,deadline-Date.now());
+    if(remaining<=0){phase=phase==='focus'?'break':'focus';remaining=(phase==='focus'?25:5)*60*1000;deadline=Date.now()+remaining;}
+    paint();persist();
+  }
+  toggle.addEventListener('click',()=>{
+    if(running){remaining=Math.max(0,deadline-Date.now());running=false;clearInterval(interval);}
+    else{deadline=Date.now()+remaining;running=true;interval=setInterval(tick,250);}
+    paint();persist();
+  });
+  reset.addEventListener('click',()=>{clearInterval(interval);phase='focus';remaining=25*60*1000;deadline=0;running=false;paint();persist();});
+  if(running){if(remaining<=0){phase=phase==='focus'?'break':'focus';remaining=(phase==='focus'?25:5)*60*1000;deadline=Date.now()+remaining;} interval=setInterval(tick,250);}
+  paint();
+})();
 
 /* ===== 动态网格（鼠标移动时轻量更新） ===== */
 const dynGrid = document.getElementById('dynamicGrid');
@@ -1209,23 +1617,23 @@ addEventListener('load', () => {
   document.querySelectorAll('.rps-btn').forEach(b=>b.addEventListener('click',()=>{
     const u=map[b.dataset.c]; const c=Math.floor(Math.random()*3); let r;
     if(u===c){ t++; r='平局'; }
-    else if((u-c+3)%3===1){ l++; r='你输了'; }
-    else{ w++; r='你赢了！'; }
+    else if((u===0&&c===1)||(u===1&&c===2)||(u===2&&c===0)){ w++; r='你赢了！'; }
+    else{ l++; r='你输了'; }
     wEl.textContent=w; tEl.textContent=t; lEl.textContent=l;
-    resEl.innerHTML='你 '+names[u]+' <span class="vs">VS</span> '+names[c]+' 电脑 — '+r;
+    resEl.textContent='你 '+names[u]+'　VS　'+names[c]+' 电脑 — '+r;
   }));
 })();
 
 /* ===== 记忆翻牌 ===== */
 (function(){
-  const grid=document.getElementById('memGrid'),movesEl=document.getElementById('memMoves'),resetBtn=document.getElementById('memReset');
+  const grid=document.getElementById('memGrid'),movesEl=document.getElementById('memMoves'),resetBtn=document.getElementById('memReset'),status=document.getElementById('memStatus');
   const emojis=['🎮','🕹️','🎲','🎯','🏆','🎨','🎭','🎪'];
   let cards=[],flipped=[],matched=0,moves=0,lock=false;
   function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
   function build(){
-    grid.innerHTML=''; cards=[]; flipped=[]; matched=0; moves=0; lock=false; movesEl.textContent=0;
+    grid.innerHTML=''; cards=[]; flipped=[]; matched=0; moves=0; lock=false; movesEl.textContent=0;status.textContent='找出全部配对';
     shuffle([...emojis,...emojis]).forEach((em,i)=>{
-      const el=document.createElement('div');
+      const el=document.createElement('button');el.type='button';el.setAttribute('aria-label','翻开一张牌');
       el.className='mem-card hidden'; el.dataset.em=em; el.textContent=em;
       el.addEventListener('click',()=>flip(el));
       grid.appendChild(el); cards.push(el);
@@ -1239,7 +1647,7 @@ addEventListener('load', () => {
       const [a,b]=flipped;
       if(a.dataset.em===b.dataset.em){
         setTimeout(()=>{ a.classList.add('done'); b.classList.add('done'); a.classList.remove('flip'); b.classList.remove('flip'); flipped=[]; lock=false; matched+=2;
-          if(matched===cards.length) setTimeout(()=>alert('全部消除！用了 '+moves+' 步'),200); },350);
+          if(matched===cards.length) status.textContent='全部配对成功！共用了 '+moves+' 步。'; },350);
       } else {
         setTimeout(()=>{ a.classList.add('hidden'); b.classList.add('hidden'); a.classList.remove('flip'); b.classList.remove('flip'); flipped=[]; lock=false; },700);
       }
@@ -1253,6 +1661,8 @@ addEventListener('load', () => {
 (function(){
   let state='idle',start=0,best=null,timer=null;
   const box=document.getElementById('rtBox'),info=document.getElementById('rtInfo');
+  try{best=Number(localStorage.getItem('icesparkle-reaction-best'))||null;}catch(_){}
+  info.textContent=best===null?'最佳：—':'历史最佳：'+best+' ms';
   box.addEventListener('click',()=>{
     if(state==='idle'||state==='done'){
       state='waiting'; box.className='rt-box wait'; box.textContent='等待变绿...';
@@ -1261,18 +1671,18 @@ addEventListener('load', () => {
       clearTimeout(timer); state='idle'; box.className='rt-box'; box.textContent='太早了! 点击重来';
     } else if(state==='ready'){
       const t=Date.now()-start; state='done'; box.className='rt-box'; box.textContent=t+' ms · 点击重来';
-      if(best===null||t<best) best=t;
-      info.textContent='本次 '+t+' ms · 最佳 '+best+' ms';
+      if(best===null||t<best){best=t;try{localStorage.setItem('icesparkle-reaction-best',String(best));}catch(_){}}
+      info.textContent='本次 '+t+' ms · 历史最佳 '+best+' ms';
     }
   });
 })();
 
 /* ===== 打地鼠 ===== */
 (function(){
-  const grid=document.getElementById('msGrid'),scoreEl=document.getElementById('msScore'),timeEl=document.getElementById('msTime'),startBtn=document.getElementById('msStart');
+  const grid=document.getElementById('msGrid'),scoreEl=document.getElementById('msScore'),timeEl=document.getElementById('msTime'),startBtn=document.getElementById('msStart'),result=document.getElementById('msResult');
   let score=0,time=30,timer=null,mole=null,running=false;
   for(let i=0;i<9;i++){
-    const h=document.createElement('div');
+    const h=document.createElement('button');h.type='button';h.setAttribute('aria-label','地鼠洞');
     h.className='ms-hole';
     h.addEventListener('click',()=>{ if(h.classList.contains('up')){ score++; scoreEl.textContent=score; h.classList.remove('up'); } });
     grid.appendChild(h);
@@ -1285,7 +1695,7 @@ addEventListener('load', () => {
   }
   startBtn.addEventListener('click',()=>{
     if(running) return;
-    running=true; score=0; time=30; scoreEl.textContent=0; timeEl.textContent=30;
+    running=true; score=0; time=30; scoreEl.textContent=0; timeEl.textContent=30;result.textContent='开始！点中冒出来的小仓鼠。';
     startBtn.disabled=true; startBtn.style.opacity=.5;
     spawn();
     timer=setInterval(()=>{
@@ -1294,7 +1704,7 @@ addEventListener('load', () => {
         clearInterval(timer); clearTimeout(mole); running=false;
         startBtn.disabled=false; startBtn.style.opacity=1;
         grid.querySelectorAll('.ms-hole.up').forEach(h=>h.classList.remove('up'));
-        alert('时间到！得分 '+score);
+        result.textContent='时间到！本局得分 '+score+'。再来一局挑战自己吧。';
       }
     },1000);
   });
@@ -1429,4 +1839,3 @@ addEventListener('load', () => {
 </script>
 </body>
 </html>
-
